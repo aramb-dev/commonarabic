@@ -9,3 +9,5 @@ They are published officially on [**Telegram**](https://t.me/addstickers/commona
 [**Telegram** Sticker](https://t.me/) => [click here](https://t.me/addstickers/commonarabic)<br>
 [**Sticker Maker Studio**](https://apps.apple.com/app/sticker-maker-studio/id1443326857) **Sticker** => [click here](https://getstickerpack.com/stickers/commonly-used-arabic-phrases-by-abdur-rahman-bilal)<br>
 [**Sticker Maker**](https://stickercommunity.com/) **Sticker** => code: NV4XK1<br>
+
+This sticker is still being updated often. 
