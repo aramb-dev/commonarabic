@@ -10,4 +10,4 @@ They are published officially on [**Telegram**](https://t.me/addstickers/commona
 [**Sticker Maker Studio**](https://apps.apple.com/app/sticker-maker-studio/id1443326857) **Sticker** => [click here](https://getstickerpack.com/stickers/commonly-used-arabic-phrases-by-abdur-rahman-bilal)<br>
 [**Sticker Maker**](https://stickercommunity.com/) **Sticker** => code: NV4XK1<br>
 
-This sticker is still being updated often. 
+This sticker pack is still being updated often. 
