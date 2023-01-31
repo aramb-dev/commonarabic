@@ -5,9 +5,9 @@ This repo includes PNG & Photoshop files used to make these stickers.
 ## Where can I use them?
 You can use them anywhere! All you need to do is upload a .png file to wherever you want them.
 
-They are published officially on [**Telegram**](https://t.me/addstickers/commonarabic) and some third-party WhatsApp sticker apps.<br>
-[**Telegram** Sticker](https://t.me/) => [click here](https://t.me/addstickers/commonarabic)<br>
-[**Sticker Maker Studio**](https://apps.apple.com/app/sticker-maker-studio/id1443326857) **Sticker** => [click here](https://getstickerpack.com/stickers/commonly-used-arabic-phrases-by-abdur-rahman-bilal)<br>
+They are published officially on [**Telegram**](https://bit.ly/commonarabictelegram) and some third-party WhatsApp sticker apps.<br>
+[**Telegram** Sticker](https://t.me/) => [click here](https://bit.ly/commonarabictelegram)<br>
+[**Sticker Maker Studio**](https://getstickerpack.com/) **Sticker** => [click here](https://bit.ly/commonarabicstkmakerstudio)<br>
 [**Sticker Maker**](https://stickercommunity.com/) **Sticker** => code: NV4XK1<br>
 
-This sticker pack is still being updated often. 
+This sticker pack is still being updated often.
