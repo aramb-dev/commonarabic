@@ -10,3 +10,6 @@ assignees: aramb-dev
 
 # File Format needed
 Enter it here (.jpeg, .pdf, .bmp, .tiff)
+
+## Sticker Needed
+Enter it here (Jayyid, or paste link)
