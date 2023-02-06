@@ -252,3 +252,9 @@ li {
 li img {
   width: 10%;
 }
+
+alt {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 20px;
+}
