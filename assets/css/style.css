@@ -59,3 +59,8 @@ html::after{
   content: "© 2022-2023 Abdur-Rahman Bilal";
 
 }
+
+img {
+  display: block;
+  width: 10%;
+}
