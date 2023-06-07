@@ -23,7 +23,7 @@ body:
       label: Which sticker?
       description: Also tell us, what do we need to fix?
       placeholder: Tell us what you see!
-      value: ""
+      value: "The mistake was..."
     validations:
       required: true
     validations:
