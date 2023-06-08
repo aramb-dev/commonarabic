@@ -1,10 +1,50 @@
-name: Request a different sticker file format not listed on website
-description: If you want a differnt file format not listed here, open an issue on GitHub, and I will supply you with the file format as soon as possible, inshaaAllah.
-assignees:
-  - aramb-dev
-labels:
-  - file-format
+name: Request a Different Sticker File Format
+
+about: If you want a different file format not listed here, open an issue on GitHub, and I will supply you with the file format as soon as possible, inshaaAllah.
+
+title: '[File Format Request]'
+
 body:
   - type: markdown
-  attributes:
-     value: "## Welcome!"
+    attributes:
+      value: |
+        # Welcome
+        This is a form to request a different file format for stickers.
+
+  - type: dropdown
+    id: file-format-needed
+    attributes:
+      label: File Format Needed
+      description: Choose from the dropdown list which format you need
+      options:
+        - XCF
+        - BMP
+        - GIF
+        - ACSII TEXT
+        - ICO
+        - JPEG
+        - PNG
+        - PNM
+        - PSD
+        - TGA
+        - TIFF
+        - XBM
+        - XPM
+
+  - type: dropdown
+    id: sticker-needed
+    attributes:
+      label: Sticker Needed
+      description: Choose the sticker you need another format for
+      options:
+        - As salaamu alaykum wa rahmatullahi wa barakaatuhu | السلام عليكم و رحمة الله و بركاته
+        - Jayyid | جيد
+        - Jazakallahu Khairan | جزاك الله خيرا
+        - inshaaAllah | إن شاء الله
+        - Tayyib | طيب
+
+  - type: textarea
+    id: additional-details
+    attributes:
+      label: Additional Details
+      description: Provide any additional details or comments (optional)
