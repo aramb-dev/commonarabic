@@ -16,7 +16,6 @@ body:
     attributes:
       label: Which file format do you want?
       description: Choose from the dropdown list which format you need
-      required: true
       options:
         - JPEG
         - BMP
@@ -35,7 +34,6 @@ body:
     attributes:
       label: Do you want the file to be transparent or non-transparent?
       description: Select the transparency option for the sticker
-      required: true
       options:
         - Transparent
         - Not Transparent
@@ -46,7 +44,6 @@ body:
       label: Please provide your email so we can email you the file
       description: Enter your email address
       placeholder: example@example.com
-      required: true
         
 
   - type: textarea
