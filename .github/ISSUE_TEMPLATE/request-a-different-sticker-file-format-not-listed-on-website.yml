@@ -17,31 +17,39 @@ body:
       label: Which file format do you want?
       description: Choose from the dropdown list which format you need
       options:
-        - XCF
+        - JPEG
         - BMP
         - GIF
-        - ACSII TEXT
+        - ASCII ART (.txt)
         - ICO
-        - JPEG
-        - PNG
-        - PNM
-        - PSD
-        - TGA
+        - AVIF
+        - HEIF
+        - PDF
+        - RAW (.data, .raw)
         - TIFF
-        - XBM
-        - XPM
+        - SVG
 
   - type: dropdown
-    id: sticker-needed
+    id: transparency
     attributes:
-      label: Which sticker are you referring to?
-      description: Choose the sticker you need another format for
+      label: Do you want the file to be transparent or non-transparent?
+      description: Select the transparency option for the sticker
       options:
-        - As salaamu alaykum wa rahmatullahi wa barakaatuhu | السلام عليكم و رحمة الله و بركاته
-        - Jayyid | جيد
-        - Jazakallahu Khairan | جزاك الله خيرا
-        - inshaaAllah | إن شاء الله
-        - Tayyib | طيب
+        - Transparent
+        - Not Transparent
+        
+       - type: input
+    id: email
+    attributes:
+      label: Please provide your email so we can email you the file
+      description: Enter your email address
+      placeholder: example@example.com
+      validations:
+        required: true
+        format:
+          pattern: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
+          message: Please enter a valid email address
+
 
   - type: textarea
     id: additional-details
