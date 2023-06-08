@@ -14,7 +14,7 @@ body:
   - type: dropdown
     id: file-format-needed
     attributes:
-      label: File Format Needed
+      label: Which file format do you want?
       description: Choose from the dropdown list which format you need
       options:
         - XCF
@@ -34,7 +34,7 @@ body:
   - type: dropdown
     id: sticker-needed
     attributes:
-      label: Sticker Needed
+      label: Which sticker are you referring to?
       description: Choose the sticker you need another format for
       options:
         - As salaamu alaykum wa rahmatullahi wa barakaatuhu | السلام عليكم و رحمة الله و بركاته
