@@ -38,7 +38,7 @@ body:
         - Transparent
         - Not Transparent
         
-       - type: input
+   - type: input
     id: email
     attributes:
       label: Please provide your email so we can email you the file
