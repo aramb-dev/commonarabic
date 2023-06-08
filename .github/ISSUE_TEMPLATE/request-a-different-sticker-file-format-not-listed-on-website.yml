@@ -46,6 +46,7 @@ body:
       placeholder: example@example.com
       validations:
         required: true
+        
 
   - type: textarea
     id: additional-details
