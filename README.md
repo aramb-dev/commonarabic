@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a6d1cb26-c66b-445a-80b8-22b97c456f9e/deploy-status)](https://app.netlify.com/sites/commonarabic/deploys)
+
 # Commonly Used Arabic Phrases Stickers by [Abdur-Rahman Bilal](https://aramb.aramservices.com)
 
 This repo includes PNG & Photoshop files used to make these stickers.
