@@ -6,8 +6,8 @@
 **Purpose:** A static website hosting commonly used Arabic phrase stickers
 **Author:** Abdur-Rahman Bilal
 **Live Site:** https://commonarabic.aramservices.com
-**Deployment:** GitHub Pages (automated via GitHub Actions) + Netlify
-**Tech Stack:** Pure HTML/CSS (no build tools, no JavaScript, no package.json)
+**Deployment:** GitHub Pages (static export) + Netlify
+**Tech Stack:** Next.js 14, React, TypeScript
 
 This repository provides downloadable Arabic phrase stickers in multiple formats (PNG, PSD, WEBP, XCF) for use on messaging platforms like Telegram and WhatsApp.
 
@@ -17,23 +17,36 @@ This repository provides downloadable Arabic phrase stickers in multiple formats
 
 ```
 commonarabic/
-├── index.html                          # Main landing page
+├── app/                                # Next.js app directory
+│   ├── layout.tsx                      # Root layout with metadata
+│   ├── page.tsx                        # Home page component
+│   ├── globals.css                     # Global styles
+│   └── sticker/
+│       └── [id]/
+│           └── page.tsx                # Dynamic sticker detail page
+│
+├── lib/
+│   └── stickers.ts                     # Sticker data configuration
+│
+├── public/                             # Static assets
+│   ├── assets/
+│   │   ├── css/
+│   │   │   └── style.css               # Original stylesheet (legacy)
+│   │   └── coverimage.png              # Social media preview image
+│   └── stickers/                       # Sticker files
+│       └── [phrase directories]/       # One directory per Arabic phrase
+│           └── [Arabic - English]/     # Nested directory with assets
+│               ├── *.png               # PNG sticker file
+│               ├── *.psd               # Photoshop source file
+│               ├── *.webp              # WebP format
+│               └── *.xcf               # GIMP format
+│
+├── package.json                        # Dependencies and scripts
+├── next.config.js                      # Next.js configuration
+├── tsconfig.json                       # TypeScript configuration
 ├── CNAME                               # Custom domain configuration
 ├── README.md                           # Project documentation
-├── .gitignore                          # Git ignore rules (.DS_Store)
-│
-├── assets/
-│   ├── css/
-│   │   └── style.css                   # Global stylesheet
-│   └── coverimage.png                  # Social media preview image
-│
-├── [phrase directories]/               # One directory per Arabic phrase
-│   ├── index.html                      # Download page for this phrase
-│   └── [Arabic - English]/             # Nested directory with assets
-│       ├── *.png                       # PNG sticker file
-│       ├── *.psd                       # Photoshop source file
-│       ├── *.webp                      # WebP format
-│       └── *.xcf                       # GIMP format
+├── .gitignore                          # Git ignore rules
 │
 ├── .github/
 │   ├── workflows/
@@ -44,24 +57,39 @@ commonarabic/
 │   │   └── request-a-different-sticker-file-format-not-listed-on-website.yml
 │   └── FUNDING.yml                     # GitHub Sponsors configuration
 │
-├── .vscode/
-│   └── settings.json                   # Live Server on port 5501
-│
-└── [Cover image files]                 # Various GitHub cover images
+└── [Legacy HTML files]                 # Original static files (for reference)
 ```
+
+---
+
+## Tech Stack
+
+### Next.js Configuration
+- **Framework:** Next.js 14 (App Router)
+- **React:** 18.3.0
+- **TypeScript:** 5.0+
+- **Output Mode:** Static export (`output: 'export'`)
+- **Image Optimization:** Disabled (unoptimized for static export)
+
+### Key Features
+- Server-side rendering with static export
+- Dynamic routes for sticker pages
+- TypeScript type safety
+- Centralized sticker configuration
+- SEO-optimized with Open Graph meta tags
 
 ---
 
 ## Existing Sticker Phrases
 
-Current stickers in the repository (as of last update):
+Current stickers in the repository:
 
-1. **as salaamu alaykum wa rahmatullahi wa barakaatuhu** - "السَّلَامُ عَلَيْكُم ورحمة الله وبركاته" (May peace, mercy, and blessings of Allah be with you)
-2. **wa alaykum as salaam wa rahmatullahi wa barakaatuhu** - "وعليكم السلام ورحمة الله وبركاته" (And may peace, mercy, and blessings of Allah be with you too)
+1. **as-salaamu-alaykum-wa-rahmatullahi-wa-barakaatuhu** - "السَّلَامُ عَلَيْكُم ورحمة الله وبركاته" (May peace, mercy, and blessings of Allah be with you)
+2. **wa-alaykum-as-salaam-wa-rahmatullahi-wa-barakaatuhu** - "وعليكم السلام ورحمة الله وبركاته" (And may peace, mercy, and blessings of Allah be with you too)
 3. **jayyid** - "جيد" (Good)
 4. **tayyib** - "طيب" (Okay)
 5. **inshaaAllah** - "إن شاء الله" (If Allah wills)
-6. **jazakallahu khairan** - "جزاك الله خيرا" (May Allah reward you with good)
+6. **jazakallahu-khairan** - "جزاك الله خيرا" (May Allah reward you with good)
 7. **waiyyaaka** - "وإيَّّاكَ" (And you too)
 
 ---
@@ -69,8 +97,9 @@ Current stickers in the repository (as of last update):
 ## File Naming Conventions
 
 ### Directory Naming Pattern
-- **Top-level directory:** English transliteration with spaces (e.g., `as salaamu alaykum wa rahmatullahi wa barakaatuhu`)
-- **Nested directory:** Arabic script followed by dash, space, and English (e.g., `السلام عليكم و رحمة الله و بركاته - As salaamu alaykum wa rahmatullahi wa barakaatuhu`)
+- **Sticker ID:** URL-safe kebab-case (e.g., `as-salaamu-alaykum-wa-rahmatullahi-wa-barakaatuhu`)
+- **Public directory:** English transliteration with spaces (e.g., `as salaamu alaykum wa rahmatullahi wa barakaatuhu`)
+- **Nested directory:** Arabic script followed by dash, space, and English
 
 ### File Naming Pattern
 Files inside nested directories follow: `[English] - [Arabic].[extension]` or `[Arabic] - [English].[extension]`
@@ -87,231 +116,132 @@ Examples:
 
 ---
 
-## HTML Structure and Conventions
-
-### Main Landing Page (`index.html`)
-
-**Key Features:**
-- Uses semantic HTML5 structure
-- Includes Open Graph meta tags for social sharing
-- Links to global stylesheet: `/assets/css/style.css`
-- No JavaScript - pure static HTML
-- Uses `<ul>` and `<li>` for sticker listings
-- Each sticker links to its subdirectory download page
-
-**Structure:**
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Meta tags -->
-    <title>Commonly Used Arabic Phrases | Abdur-Rahman Bilal</title>
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <!-- Open Graph tags -->
-</head>
-<body>
-    <header>
-        <h1>Commonly Used Arabic Phrases by <a href="...">Abdur-Rahman Bilal</a></h1>
-    </header>
-    <main>
-        <div class="whereuse">
-            <!-- Usage information -->
-        </div>
-        <div id="downloads">
-            <h3>Downloads</h3>
-            <ul>
-                <!-- Sticker links -->
-            </ul>
-        </div>
-    </main>
-</body>
-</html>
-```
-
-### Sticker Download Pages
-
-Each phrase directory contains an `index.html` following this pattern:
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Commonly Used Arabic Phrases | Abdur-Rahman Bilal</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <meta property="og:description" content="[Arabic - English] Sticker">
-    <meta property="og:image" content="./[nested-dir]/[filename].png">
-</head>
-<body>
-    <ul>
-        <a href="./[nested-dir]/[filename].png"><li>Download .png</li></a>
-        <a href="./[nested-dir]/[filename].webp"><li>Download .webp</li></a>
-        <a href="./[nested-dir]/[filename].psd"><li>Download .psd</li></a>
-        <a href="./[nested-dir]/[filename].xcf"><li>Download .xcf</li></a>
-        <hr>
-        <a href="https://bit.ly/commonarabic-rdff">
-            <li>Request different file format</li>
-        </a>
-    </ul>
-</body>
-</html>
-```
-
----
-
-## CSS Styling Conventions
-
-**File:** `/assets/css/style.css`
-
-### Design System
-
-**Colors:**
-- Background: `#0a4210` (dark green)
-- Text: `#ffffff` (white)
-- Hover accent: `#347d2d` (lighter green)
-- Secondary hover: `#d5e0d5` (very light green)
-
-**Typography:**
-- Primary font: 'Noto Sans', sans-serif
-- Arabic font: 'IBM Plex Sans Arabic', sans-serif
-- Accent font: 'Abril Fatface', sans-serif
-- Base font size: 16px
-
-**Key Styling Rules:**
-- Links are white with no underline by default
-- Hover effects increase font size and change color
-- Images are set to `width: 10%` and `display: block`
-- Copyright notice added via `html::after` pseudo-element
-
-### Important CSS Patterns
-```css
-/* Different hover effects for different sections */
-header a:hover { font-size: 1.5em; }
-.whereuse a:hover { font-size: 2rem; }
-ul a:hover { font-size: 2rem; }
-```
-
----
-
 ## Development Workflow
 
 ### Local Development
 
-1. **No build process required** - This is a pure static site
-2. **Local testing:** Use VS Code Live Server on port 5501 (configured in `.vscode/settings.json`)
-3. **File editing:** Direct HTML/CSS editing - no transpilation needed
+**Setup:**
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+```
+
+Development server runs on `http://localhost:3000`
+
+**Available Scripts:**
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run export` - Build and export static site
+
+### Project Structure
+
+**Pages:**
+- `/` - Home page (list of all stickers)
+- `/sticker/[id]/` - Individual sticker download page
+
+**Components:**
+- `app/layout.tsx` - Root layout with global metadata
+- `app/page.tsx` - Home page with sticker gallery
+- `app/sticker/[id]/page.tsx` - Dynamic sticker detail page
+
+**Data:**
+- `lib/stickers.ts` - Central sticker configuration
+  - Contains all sticker metadata
+  - Type-safe interface
+  - Helper functions for data access
+
+### Styling
+
+**Approach:** CSS Modules / Global CSS
+- Global styles in `app/globals.css`
+- Maintains original design system
+- Font imports from Google Fonts
+
+**Design System:**
+- Background: `#0a4210` (dark green)
+- Text: `#ffffff` (white)
+- Hover accent: `#347d2d` (lighter green)
+- Secondary hover: `#d5e0d5` (very light green)
+- Fonts: Noto Sans, IBM Plex Sans Arabic, Abril Fatface
 
 ### Git Workflow
 
-**Current Branch:** `claude/claude-md-mi3gaijghh7rjkpr-01NwpUs3aQJ3gvMpLCsMGfVw`
-**Main Branch:** `main` (for production deployments)
+**Branch Strategy:**
+- `main` - Production branch (deployed to GitHub Pages)
+- Feature branches - `claude/[session-id]` for AI assistant work
 
 **Commit Message Style:**
-Based on repository history:
 - Use imperative mood
 - Keep messages concise
-- Examples: "Update README.md", "Add new sticker", "Update copyright"
+- Examples: "Convert to Next.js", "Add new sticker", "Update configuration"
 
 ### Deployment
 
-**Automated via GitHub Actions:**
-- Workflow: `.github/workflows/static.yml`
-- Triggers: Push to `main` branch or manual dispatch
-- Platform: GitHub Pages
-- Process: Uploads entire repository as static site
+**Static Export:**
+1. `npm run build` - Creates optimized production build
+2. Next.js exports to `/out` directory
+3. Deploy `/out` to GitHub Pages or Netlify
 
-**Also deployed to Netlify:**
-- Status badge in README
-- URL: https://commonarabic.netlify.app (likely)
+**GitHub Actions:**
+- Workflow: `.github/workflows/static.yml`
+- May need updating for Next.js build process
+- Should run `npm install && npm run build` before deployment
 
 ---
 
 ## Adding New Stickers - Step-by-Step Guide
 
-When adding a new Arabic phrase sticker to the repository:
+### 1. Add Sticker Files to Public Directory
 
-### 1. Create Directory Structure
 ```bash
-# Create top-level directory (English transliteration with spaces)
-mkdir "maa shaa Allah"
+# Create directory structure in public/stickers/
+mkdir -p "public/stickers/maa shaa Allah/ما شاء الله - maa shaa Allah"
 
-# Create nested directory (Arabic - English)
-mkdir "maa shaa Allah/ما شاء الله - maa shaa Allah"
+# Add files to nested directory
+# - maa shaa Allah - ما شاء الله.png (required)
+# - maa shaa Allah - ما شاء الله.psd (required)
+# - maa shaa Allah - ما شاء الله.webp (optional)
+# - maa shaa Allah - ما شاء الله.xcf (optional)
 ```
 
-### 2. Add Asset Files
-Place the following files in the nested directory:
-- `maa shaa Allah - ما شاء الله.png` (required)
-- `maa shaa Allah - ما شاء الله.psd` (required)
-- `maa shaa Allah - ما شاء الله.webp` (optional)
-- `maa shaa Allah - ما شاء الله.xcf` (optional)
+### 2. Update Sticker Configuration
 
-### 3. Create Download Page
-Create `[phrase-dir]/index.html`:
+Edit `lib/stickers.ts` and add new entry:
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commonly Used Arabic Phrases | Abdur-Rahman Bilal</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <meta property="og:title" content="Commonly Used Arabic Phrases | Abdur-Rahman Bilal">
-    <meta property="og:description" content="ما شاء الله - maa shaa Allah Sticker">
-    <meta property="og:image" content="./ما شاء الله - maa shaa Allah/maa shaa Allah - ما شاء الله.png">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://commonarabic.aramservices.com/maa%20shaa%20Allah/">
-</head>
-<body>
-    <ul>
-        <a href="./ما شاء الله - maa shaa Allah/maa shaa Allah - ما شاء الله.png">
-            <li>Download .png</li>
-        </a>
-        <br><br>
-        <a href="./ما شاء الله - maa shaa Allah/maa shaa Allah - ما شاء الله.webp">
-            <li>Download .webp</li>
-        </a>
-        <br><br>
-        <a href="./ما شاء الله - maa shaa Allah/maa shaa Allah - ما شاء الله.psd">
-            <li>Download .psd</li>
-        </a>
-        <br><br>
-        <a href="./ما شاء الله - maa shaa Allah/maa shaa Allah - ما شاء الله.xcf">
-            <li>Download .xcf</li>
-        </a>
-        <br><br>
-        <hr>
-        <a href="https://bit.ly/commonarabic-rdff">
-            <li>If you want a different file format not listed here, click this link to open an <br> issue on GitHub, and I will supply you
-                <br> with the file format as soon as possible, inshaaAllah.
-            </li>
-        </a>
-    </ul>
-</body>
-</html>
+```typescript
+{
+  id: 'maa-shaa-Allah',
+  arabic: 'ما شاء الله',
+  english: 'maa shaa Allah',
+  dirName: 'maa shaa Allah',
+  nestedDirName: 'ما شاء الله - maa shaa Allah',
+  baseFileName: 'maa shaa Allah - ما شاء الله',
+  formats: ['png', 'webp', 'psd', 'xcf'],
+  alt: 'maa shaa Allah - What Allah has willed',
+  title: 'maa shaa Allah in Arabic'
+}
 ```
 
-### 4. Update Main Index Page
-Add entry to `/index.html` in the `#downloads` div:
+### 3. Build and Test
 
-```html
-<a href="./maa shaa Allah/">
-    <li><br><br>
-        ما شاء الله - maa shaa Allah<br>
-        <img src="./maa shaa Allah/ما شاء الله - maa shaa Allah/maa shaa Allah - ما شاء الله.png"
-            alt="maa shaa Allah - What Allah has willed"
-            title="maa shaa Allah in Arabic"><br>
-        Downloads
-    </li>
-</a>
+```bash
+# Test in development
+npm run dev
+
+# Build for production
+npm run build
 ```
 
-### 5. Verify File Paths
-- Ensure all paths use proper URL encoding for spaces (%20)
-- Verify image paths are relative and correct
-- Test all download links work locally
+### 4. Verify
+- Check home page displays new sticker
+- Visit `/sticker/maa-shaa-Allah/` to test download page
+- Verify all file formats are accessible
+- Check Open Graph metadata
 
 ---
 
@@ -323,53 +253,51 @@ Add entry to `/index.html` in the `#downloads` div:
 - Verify transliterations and meanings with user if uncertain
 - Arabic text should always be included alongside English
 
-### Technical Constraints
-- **No build tools** - Don't suggest npm, webpack, or bundlers
-- **No JavaScript** - Site is intentionally pure HTML/CSS
-- **No frameworks** - Don't recommend React, Vue, etc.
-- **Static only** - No server-side processing needed
+### Technical Guidelines
 
-### File Handling Best Practices
-- Always create the nested directory structure
-- Maintain bilingual naming (Arabic - English or English - Arabic)
-- Preserve file format diversity (PNG, PSD, WEBP, XCF)
-- Use URL-safe characters in paths
+**Do:**
+- Use TypeScript for type safety
+- Add new stickers to `lib/stickers.ts` configuration
+- Follow Next.js App Router conventions
+- Maintain static export compatibility
+- Test builds before committing
+
+**Don't:**
+- Use client-side only features (no `window`, `localStorage` in server components)
+- Add dynamic server features (API routes won't work with static export)
+- Use `next/image` Image component (causes issues with static export)
+- Break the existing directory structure in `public/stickers/`
 
 ### Common Tasks
 
 **When asked to add a new sticker:**
-1. Confirm the Arabic phrase, transliteration, and meaning
-2. Follow the 5-step process outlined above
-3. Update both the main index and create the download page
-4. Verify file naming matches existing conventions
+1. Confirm Arabic phrase, transliteration, and meaning
+2. Add files to `public/stickers/[phrase]/[nested-dir]/`
+3. Update `lib/stickers.ts` with new entry
+4. Test locally with `npm run dev`
+5. Build and verify with `npm run build`
 
 **When asked to modify styling:**
-1. All changes go in `/assets/css/style.css`
-2. Maintain the existing color scheme unless explicitly requested
+1. Edit `app/globals.css` for global styles
+2. Maintain existing color scheme unless explicitly requested
 3. Preserve accessibility (contrast ratios, font sizes)
-4. Test hover effects don't break layout
+4. Test on both development and production builds
 
-**When asked to fix links:**
-1. Check both relative and absolute paths
-2. Account for spaces in directory names (use proper escaping)
-3. Verify paths work on GitHub Pages (case-sensitive)
-4. Test Open Graph meta tags for social sharing
-
-### Git Operations
-- Develop on branch: `claude/claude-md-mi3gaijghh7rjkpr-01NwpUs3aQJ3gvMpLCsMGfVw`
-- Push with: `git push -u origin [branch-name]`
-- Use retry logic with exponential backoff for network failures
-- Never push directly to `main` without explicit permission
+**When asked to add features:**
+1. Ensure compatibility with static export
+2. Use server components by default
+3. Add client components only when necessary (`'use client'`)
+4. Test that feature works after `npm run build`
 
 ### Testing Checklist
-- [ ] All download links work
+- [ ] `npm run dev` works without errors
+- [ ] `npm run build` completes successfully
+- [ ] All download links work in `/out` directory
 - [ ] Images display correctly
-- [ ] HTML validates (no syntax errors)
-- [ ] CSS doesn't break existing styles
 - [ ] Open Graph tags include correct image paths
 - [ ] Arabic text displays properly (RTL support)
 - [ ] File naming follows conventions
-- [ ] Local testing with Live Server (port 5501)
+- [ ] TypeScript types are correct
 
 ---
 
@@ -392,12 +320,43 @@ Add entry to `/index.html` in the `#downloads` div:
 
 ---
 
+## Troubleshooting
+
+### Build Errors
+
+**"Module not found"**
+- Run `npm install` to ensure all dependencies are installed
+- Check import paths use `@/` alias correctly
+
+**"Image optimization" errors**
+- Verify `next.config.js` has `images: { unoptimized: true }`
+- Use standard `<img>` tags instead of Next.js `<Image>`
+
+**Static export fails**
+- Ensure no dynamic server features (API routes, server actions)
+- Check all data is available at build time
+- Verify `output: 'export'` in `next.config.js`
+
+### Development Issues
+
+**Styles not updating**
+- Clear `.next` directory: `rm -rf .next`
+- Restart dev server
+
+**Sticker not showing**
+- Check file paths match exactly (spaces, capitalization)
+- Verify file exists in `public/stickers/`
+- Check sticker configuration in `lib/stickers.ts`
+
+---
+
 ## Version History
 
-This CLAUDE.md was created on 2025-11-17 based on repository analysis.
+**v2.0.0** - 2025-11-17: Converted to Next.js with TypeScript
+**v1.0.0** - 2025-11-17: Initial CLAUDE.md created for static HTML site
 
 **Last Updated:** 2025-11-17
-**Repository State:** 7 active stickers, GitHub Pages deployment active
+**Repository State:** 7 active stickers, Next.js static export
 **Copyright:** © 2022-2025 Abdur-Rahman Bilal
 
 ---
@@ -405,18 +364,24 @@ This CLAUDE.md was created on 2025-11-17 based on repository analysis.
 ## Quick Reference Commands
 
 ```bash
-# Local development
-# Use VS Code Live Server or any static server on port 5501
+# Development
+npm install              # Install dependencies
+npm run dev             # Start dev server (localhost:3000)
+npm run build           # Build for production
+npm run start           # Start production server
+
+# Deployment
+npm run export          # Build and export to /out
 
 # Git operations
 git status
 git add .
-git commit -m "Add new sticker: [phrase name]"
-git push -u origin claude/claude-md-mi3gaijghh7rjkpr-01NwpUs3aQJ3gvMpLCsMGfVw
+git commit -m "Description of changes"
+git push -u origin [branch-name]
 
 # File structure check
-ls -la
-find . -name "*.png" -o -name "*.psd"
+ls -la app/
+ls -la public/stickers/
 ```
 
 ---
